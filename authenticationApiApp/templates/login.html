@@ -1,0 +1,109 @@
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="login-form" method="POST">
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const username = document.querySelector('input[name="username"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+
+            const data = {
+                username: username,
+                password: password,
+            };
+
+            fetch('/api/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Login failed: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const accessToken = data.access_token;
+
+                // Store the access token securely (e.g., in localStorage) and use it for authenticated requests.
+                localStorage.setItem('access_token', accessToken);
+
+                window.location.href = '/api/home/';
+            })
+            .catch(error => {
+                console.error('Login failed:', error);
+            });
+        });
+    </script>
+</body>
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="login-form" method="post"> 
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const username = document.querySelector('input[name="username"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+
+            const data = {
+                username: username,
+                password: password,
+            };
+
+            fetch('/api/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+                console.log("hey sunitha from form data----------------------"+data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Login failed: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const accessToken = data.access_token;
+
+                // Store the access token securely (e.g., in localStorage) and use it for authenticated requests.
+                localStorage.setItem('access_token', accessToken);
+
+                window.location.href = '/api/home/';
+            })
+            .catch(error => {
+                console.error('Login failed:', error);
+            });
+        });
+    </script>
+</body>
+</html>
