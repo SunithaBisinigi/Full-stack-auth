@@ -15,6 +15,7 @@
             event.preventDefault();
 
             const formData = new FormData(event.target);
+            console.log("frontend----------",formData);
 
             fetch('/registration/', {
                 method: 'POST',
@@ -23,7 +24,8 @@
             .then(response => response.json())
             .then(data => {
                 if (data.access_token) {
-                    localStorage.setItem('access_token', data.access_token);
+                    console.log("The data is:",data);
+                    document.cookie = `access_token=${data.access_token}; max-age=3600*3; path=/; samesite=Lax; httponly`;
                     window.location.href = '/api/home/';
                 } else {
                     console.log('Registration failed:', data.error);
